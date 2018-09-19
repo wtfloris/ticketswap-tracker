@@ -22,6 +22,7 @@ for line in r.readlines():
                 f.write('error')
     else:
         url = "https://www.ticketswap.nl/event/"+line
+        print(url)
         event_timestamp = tswp.get_event_date(url)
         print(event_timestamp)
         w.write(line[:-1]+":"+str(int(event_timestamp))+'\n')
