@@ -16,14 +16,14 @@ for line in r.readlines():
         url = "https://www.ticketswap.nl/event/"+line[:line.index(":")]
         print(int(line[line.index(":")+1:-1]))
         diff = tswp.get_date_diff(int(line[line.index(":")+1:-1]))
-        if diff < 48 and sys.argv == "daily":
+        if diff < 48 and sys.argv[1] == "daily":
             with open("hourly", "w") as hourly_wr:
                 hourly_wr.write(line)
                 print("Event in less than 48 hours, moving to hourly")
         if diff > 0:
-            if diff > 47 and sys.argv == "daily":
+            if diff > 47 and sys.argv[1] == "daily":
                 w.write(line)
-            if diff < 48 and sys.argv == "hourly":
+            if diff < 48 and sys.argv[1] == "hourly":
                 w.write(line)
             with open("stats_"+line[:line.index("/")], 'a') as f:
                 print(str(diff)+" hours left until the event starts")
@@ -40,8 +40,8 @@ for line in r.readlines():
         w.write(line[:-1]+":"+str(int(event_timestamp))+'\n')
 r.close()
 w.close()
-if sys.argv[0] == "daily":
+if sys.argv[1] == "daily":
     rename("daily_tmp", "daily")
-if sys.argv[0] == "hourly":
+if sys.argv[1] == "hourly":
     rename("hourly_tmp", "hourly")
 
