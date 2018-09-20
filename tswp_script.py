@@ -2,10 +2,10 @@ import tswp_lib as tswp
 from os import rename
 import sys
 
-if sys.argv[0] == "daily":
+if sys.argv[1] == "daily":
     r = open("daily", "r")
     w = open("daily_tmp", "w")
-if sys.argv[0] == "hourly":
+if sys.argv[1] == "hourly":
     r = open("hourly", "r")
     w = open("hourly_tmp", "w")
 
@@ -26,7 +26,7 @@ for line in r.readlines():
             if diff < 48 and sys.argv == "hourly":
                 w.write(line)
             with open("stats_"+line[:line.index("/")], 'a') as f:
-                print(diff+" hours left until the event starts")
+                print(str(diff)+" hours left until the event starts")
                 stats = [diff]
                 stats = stats+tswp.get_event_stats(url)
                 f.write(str(stats)+'\n')
