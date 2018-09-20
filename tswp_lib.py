@@ -38,10 +38,10 @@ def get_event_date(url):
 
     date = soup.find("span", {'class' : 'date'}).text[1:]
     
-try:
-    date = date[:date.index("-")-1] 
-except:
-    pass
+    try:
+        date = date[:date.index("-")-1]
+    except:
+        pass
     
     date = date[date.index(" ")+1:]
     day = date[:date.index(" ")]
